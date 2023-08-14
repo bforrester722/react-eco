@@ -2,13 +2,24 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import NewTodoForm from "./NewTodoForm";
 import TodoListItem from "./TodoListItem";
+import { getTodos, getTodosLoading } from "./selectors";
 import {
   loadTodos,
   removeTodoRequest,
   markTodoAsCompletedRequest,
 } from "./thunks";
-import { markTodoAsCompleted } from "./actions";
+
 import "./TodoList.css";
+import { ITodo, IState } from "./interface";
+import { Dispatch } from "redux";
+
+interface IProps {
+  todos: ITodo[];
+  isLoading: boolean;
+  onRemovePressed: (val: string) => void;
+  onCompletedPressed: (val: string) => void;
+  startLoadingTodos: () => void;
+}
 
 const TodoList = ({
   todos = [],
@@ -16,7 +27,7 @@ const TodoList = ({
   onCompletedPressed,
   isLoading,
   startLoadingTodos,
-}) => {
+}: IProps) => {
   useEffect(() => {
     startLoadingTodos();
   }, []);
@@ -38,15 +49,15 @@ const TodoList = ({
   return isLoading ? loadingMessage : content;
 };
 
-const mapStateToProps = (state) => ({
-  isLoading: state.isLoading,
-  todos: state.todos,
+const mapStateToProps = (state: IState) => ({
+  isLoading: getTodosLoading(state),
+  todos: getTodos(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   startLoadingTodos: () => dispatch(loadTodos()),
-  onRemovePressed: (id) => dispatch(removeTodoRequest(id)),
-  onCompletedPressed: (id) => dispatch(markTodoAsCompletedRequest(id)),
+  onRemovePressed: (id: string) => dispatch(removeTodoRequest(id)),
+  onCompletedPressed: (id: string) => dispatch(markTodoAsCompletedRequest(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

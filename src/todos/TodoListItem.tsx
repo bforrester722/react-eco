@@ -1,6 +1,18 @@
 import React from "react";
 import "./TodoListItem.css";
-const TodoListItem = ({ todo, onCompletedPressed, onRemovePressed }) => (
+import { ITodo } from "./interface";
+
+interface IProps {
+  todo: ITodo;
+  onRemovePressed: (val: string) => void;
+  onCompletedPressed: (val: string) => void;
+}
+
+const TodoListItem = ({
+  todo,
+  onCompletedPressed,
+  onRemovePressed,
+}: IProps) => (
   <div className="todo-item-container">
     <h3>{todo.text}</h3>
     <div className="buttons-container">

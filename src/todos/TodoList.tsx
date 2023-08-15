@@ -1,28 +1,39 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import NewTodoForm from "./NewTodoForm";
 import TodoListItem from "./TodoListItem";
-import { getTodos, getTodosLoading } from "./selectors";
+import {
+  getTodosLoading,
+  getCompletedTodos,
+  getIncompleteTodos,
+} from "./selectors";
 import {
   loadTodos,
   removeTodoRequest,
   markTodoAsCompletedRequest,
 } from "./thunks";
 
-import "./TodoList.css";
 import { ITodo, IState } from "./interface";
 import { Dispatch } from "redux";
 
 interface IProps {
-  todos: ITodo[];
+  completedTodos: ITodo[];
+  incompleteTodos: ITodo[];
   isLoading: boolean;
   onRemovePressed: (val: string) => void;
   onCompletedPressed: (val: string) => void;
   startLoadingTodos: () => void;
 }
 
+const ListWrapper = styled.div`
+  max-width: 700px;
+  margin: auto;
+`;
+
 const TodoList = ({
-  todos = [],
+  completedTodos,
+  incompleteTodos,
   onRemovePressed,
   onCompletedPressed,
   isLoading,
@@ -34,9 +45,10 @@ const TodoList = ({
 
   const loadingMessage = <div>Loading todos...</div>;
   const content = (
-    <div className="list-wrapper">
+    <ListWrapper>
       <NewTodoForm />
-      {todos.map((todo) => (
+      <h3>Incomplete:</h3>
+      {incompleteTodos.map((todo) => (
         <TodoListItem
           key={todo.text}
           todo={todo}
@@ -44,14 +56,24 @@ const TodoList = ({
           onCompletedPressed={onCompletedPressed}
         />
       ))}
-    </div>
+      <h3>Completed:</h3>
+      {completedTodos.map((todo) => (
+        <TodoListItem
+          key={todo.text}
+          todo={todo}
+          onRemovePressed={onRemovePressed}
+          onCompletedPressed={onCompletedPressed}
+        />
+      ))}
+    </ListWrapper>
   );
   return isLoading ? loadingMessage : content;
 };
 
 const mapStateToProps = (state: IState) => ({
   isLoading: getTodosLoading(state),
-  todos: getTodos(state),
+  completedTodos: getCompletedTodos(state),
+  incompleteTodos: getIncompleteTodos(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

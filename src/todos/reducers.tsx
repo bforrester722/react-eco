@@ -6,9 +6,13 @@ import {
   LOAD_TODOS_SUCCESS,
   LOAD_TODOS_FAILURE,
 } from "./actions";
+import { IState } from "./interface";
 
-const initialState = { isLoading: false, data: [] };
-export const todos = (state = initialState, action) => {
+const initialState: IState["todos"] = {
+  isLoading: false,
+  data: [],
+};
+export const todos = (state = initialState, action: any) => {
   const { type, payload } = action;
 
   switch (type) {

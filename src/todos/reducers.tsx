@@ -29,6 +29,7 @@ export const todos = (state = initialState, action: any) => {
     }
     case MARK_TODO_AS_COMPLETED: {
       const { todo: updatedTodo } = payload;
+      console.log(payload);
       return {
         ...state,
         data: state.data.map((todo) => {

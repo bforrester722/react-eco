@@ -1,38 +1,22 @@
 import { expect } from "chai";
-import { getCompletedTodos } from "../selectors";
+import { getCompletedTodos, getIncompleteTodos } from "../selectors";
 import { ITodo } from "../interface";
+import { fakeTodos } from "./sharedData";
 
-describe("The getCompletedTodos selector", () => {
+describe("Selectors tests", () => {
   it("Returns only completed todos", () => {
-    const fakeTodos: ITodo[] = [
-      {
-        id: "1",
-        createdAt: new Date().toString(),
-        text: "Say Hello",
-        isCompleted: true,
-      },
-      {
-        id: "2",
-        createdAt: new Date().toString(),
-        text: "Say Goodbye",
-        isCompleted: false,
-      },
-      {
-        id: "3",
-        createdAt: new Date().toString(),
-        text: "Climb Mount Everest",
-        isCompleted: false,
-      },
-    ];
-    const expected = [
-      {
-        id: "1",
-        createdAt: new Date().toString(),
-        text: "Say Hello",
-        isCompleted: true,
-      },
-    ];
-    const actual = getCompletedTodos.resultFunc(fakeTodos);
+    const expected: ITodo[] = fakeTodos.filter(
+      (todo: ITodo) => todo.isCompleted
+    );
+    const actual: ITodo[] = getCompletedTodos.resultFunc(fakeTodos);
+    expect(actual).to.deep.equal(expected);
+  });
+
+  it("Returns only incompleted todos", () => {
+    const expected: ITodo[] = fakeTodos.filter(
+      (todo: ITodo) => !todo.isCompleted
+    );
+    const actual: ITodo[] = getIncompleteTodos.resultFunc(fakeTodos);
 
     expect(actual).to.deep.equal(expected);
   });

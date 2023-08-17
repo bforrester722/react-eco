@@ -27,6 +27,7 @@ export const addTodoRequest =
   (text: string) => async (dispatch: Dispatch<any>) => {
     try {
       const body = JSON.stringify({ text });
+
       const response = await fetch("http://localhost:8080/todos", {
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +49,7 @@ export const removeTodoRequest =
       const response = await fetch(`http://localhost:8080/todos/${id}`, {
         method: "delete",
       });
+
       const removedTodo = await response.json();
       dispatch(removeTodo(removedTodo));
     } catch (e) {
@@ -65,6 +67,7 @@ export const markTodoAsCompletedRequest =
           method: "post",
         }
       );
+
       const updatedTodo = await response.json();
       dispatch(markTodoAsCompleted(updatedTodo));
     } catch (e) {

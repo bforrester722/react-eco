@@ -31,11 +31,10 @@ export const DataSource = ({
       setState(data);
     })();
   }, [getDataFunc]);
-  // console.log("React.Children", React.Children);
+
   return (
     <ItemContainer>
       {React.Children.map(children, (child) => {
-        // console.log("child", child);
         return React.isValidElement(child)
           ? React.cloneElement(child, { [resourceName]: state })
           : child;

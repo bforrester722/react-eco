@@ -1,9 +1,9 @@
 import * as Adapter from "enzyme-adapter-react-16";
 import * as sinon from "sinon";
-import { expect } from "chai";
 import * as React from "react";
-import { DataSource } from "../DataSource";
 import { configure, mount } from "enzyme";
+import { expect } from "chai";
+import { DataSource } from "../DataSource";
 import "jsdom-global/register";
 
 // Configure enzyme to work with React 16
@@ -15,7 +15,7 @@ describe("DataSource component", () => {
 
     const wrapper = mount(
       <DataSource getDataFunc={mockGetDataFunc} resourceName="user">
-        <div>Child Component</div>
+        <div key="child">Child Component</div>
       </DataSource>
     );
 
@@ -24,13 +24,36 @@ describe("DataSource component", () => {
     wrapper.update();
 
     const renderedChild = wrapper.find("div").first();
+    const childElements = React.Children.toArray(
+      renderedChild.props().children as React.ReactNode
+    ) as React.ReactElement[];
+
+    // Access the user property from the first child's props
+    const actual = childElements[0].props.user;
 
     expect(renderedChild.text()).to.equal("Child Component");
-    // @ts-ignore
-    const actual = renderedChild.props().children[0].props.user;
 
     expect(actual).to.deep.equal({
       data: "testData",
     });
+  });
+
+  it("should render children without state data", () => {
+    const wrapper = mount(
+      <DataSource getDataFunc={() => {}} resourceName="user">
+        <div key="child">Child Component</div>
+      </DataSource>
+    );
+
+    const renderedChild = wrapper.find("div").first();
+
+    const childElements = React.Children.toArray(
+      renderedChild.props().children as React.ReactNode
+    ) as React.ReactElement[];
+
+    // Access the user property from the first child's props
+    const actual = childElements[0].props.user;
+
+    expect(actual).to.equal(null);
   });
 });

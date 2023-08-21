@@ -17,15 +17,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ItemContainer = styled.div`
-  background: #fff;
-  border-radius: 8px;
-  margin-top: 8px;
-  padding: 16px 32px;
-  position: relative;
-  box-shadow: 0 4px 8px grey;
-`;
-
 export const getServerData = (url: string) => async () => {
   const response = await axios.get(`http://localhost:8080${url}`);
   return response.data;

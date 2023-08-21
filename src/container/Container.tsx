@@ -26,11 +26,12 @@ const ItemContainer = styled.div`
   box-shadow: 0 4px 8px grey;
 `;
 
+export const getServerData = (url: string) => async () => {
+  const response = await axios.get(`http://localhost:8080${url}`);
+  return response.data;
+};
+
 export const Container = () => {
-  const getServerData = (url: string) => async () => {
-    const response = await axios.get(`http://localhost:8080${url}`);
-    return response.data;
-  };
   const users = ["123", "234", "345"];
   const products = ["1234", "2345", "3456"];
   return (

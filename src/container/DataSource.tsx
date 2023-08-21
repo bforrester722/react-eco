@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 interface IDataSourceProps {
@@ -30,10 +31,11 @@ export const DataSource = ({
       setState(data);
     })();
   }, [getDataFunc]);
-
+  // console.log("React.Children", React.Children);
   return (
     <ItemContainer>
       {React.Children.map(children, (child) => {
+        // console.log("child", child);
         return React.isValidElement(child)
           ? React.cloneElement(child, { [resourceName]: state })
           : child;

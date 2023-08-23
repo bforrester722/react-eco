@@ -17,6 +17,15 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const ItemContainer = styled.div`
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 32px;
+  padding: 16px 32px;
+  position: relative;
+  box-shadow: 0 4px 8px grey;
+`;
+
 export const getServerData = (url: string) => async () => {
   const response = await axios.get(`http://localhost:8080${url}`);
   return response.data;
@@ -31,13 +40,9 @@ export const Container = () => {
       <h3>Users:</h3>
       <Wrapper>
         {users.map((user) => (
-          <DataSource
-            key={user}
-            getDataFunc={getServerData(`/users/${user}`)}
-            resourceName="user"
-          >
-            <UserInfo />
-          </DataSource>
+          <ItemContainer key={user}>
+            <UserInfo userId={user} />
+          </ItemContainer>
         ))}
       </Wrapper>
       <h3>Products:</h3>

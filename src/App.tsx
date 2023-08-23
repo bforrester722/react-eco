@@ -4,6 +4,8 @@ import styled from "styled-components";
 import TodoList from "./todos/TodoList";
 
 import { Container } from "./container/Container";
+import { UserInfoForm } from "./higherOrder/UserInfoForm";
+import { ProductInfoForm } from "./higherOrder/ProductInfoForm";
 
 const AppContainer = styled.div`
   margin: 1rem;
@@ -13,6 +15,8 @@ const AppContainer = styled.div`
 
 const App = () => (
   <AppContainer>
+    <UserInfoForm />
+    <ProductInfoForm />
     <TodoList />
     <Container />
   </AppContainer>

@@ -1,5 +1,5 @@
 import * as React from "react";
-interface IProps {
+export interface IProductProps {
   product?: {
     description: string;
     name: string;
@@ -7,7 +7,7 @@ interface IProps {
     rating: number;
   };
 }
-export const ProductInfo = ({ product }: IProps) => {
+export const ProductInfo = ({ product }: IProductProps) => {
   const { name, price, description, rating } = product || {};
 
   return product ? (

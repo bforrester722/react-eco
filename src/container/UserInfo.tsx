@@ -1,5 +1,6 @@
 import * as React from "react";
-interface IProps {
+import { useResource } from "../customHooks/useResource";
+export interface IUserInfoProps {
   user?: {
     age: number;
     hairColor: string;
@@ -8,7 +9,10 @@ interface IProps {
     name: string;
   };
 }
-export const UserInfo = ({ user }: IProps) => {
+export const UserInfo = ({ userId }: { userId?: string }) => {
+  const user: IUserInfoProps["user"] = useResource(
+    `http://localhost:8080/users/${userId}`
+  );
   const { name, age, hairColor, hobbies } = user || {};
 
   return user ? (
@@ -18,7 +22,7 @@ export const UserInfo = ({ user }: IProps) => {
       <p>Hair Color: {hairColor}</p>
       <h3>Hobbies:</h3>
       <ul>
-        {hobbies.map((hobby) => (
+        {hobbies.map((hobby: string) => (
           <li key={hobby}>{hobby}</li>
         ))}
       </ul>

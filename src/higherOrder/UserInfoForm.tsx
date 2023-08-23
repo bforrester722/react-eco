@@ -1,7 +1,7 @@
 import React from "react";
 import { withEditableResource } from "./withEditableResource";
 import { IUserInfoProps } from "../container/UserInfo";
-interface IUserInfoFormProps {
+export interface IUserInfoFormProps {
   user: IUserInfoProps["user"];
   onChangeUser: ({
     age,

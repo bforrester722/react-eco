@@ -111,7 +111,16 @@ app.get("/users/:id", (req, res) => {
   res.json(users.find((user) => user.id === id));
 });
 
-const products = [
+app.post("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const { user: updatedUser } = req.body;
+
+  users = users.map((user) => (user.id === id ? updatedUser : user));
+
+  res.json(users.find((user) => user.id === id));
+});
+
+let products = [
   {
     id: "1234",
     name: "Flat-Screen TV",
@@ -137,6 +146,17 @@ const products = [
 
 app.get("/products/:id", (req, res) => {
   const { id } = req.params;
+
+  res.json(products.find((product) => product.id === id));
+});
+
+app.post("/products/:id", (req, res) => {
+  const { id } = req.params;
+  const { product: updatedProduct } = req.body;
+
+  products = products.map((product) =>
+    product.id === id ? updatedProduct : product
+  );
 
   res.json(products.find((product) => product.id === id));
 });

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, FC } from "react";
+import * as React from "react";
+import { useState, useEffect, FC } from "react";
 import axios from "axios";
 import { IUserInfoProps } from "../container/UserInfo";
 import { IProductProps } from "../container/ProductInfo";

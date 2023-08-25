@@ -1,9 +1,9 @@
 import React from "react";
 import { DataSource } from "./DataSource";
-import { UserInfo } from "./UserInfo";
 import axios from "axios";
 import { ProductInfo } from "./ProductInfo";
 import styled from "styled-components";
+import { UserInfoForm } from "../higherOrder/UserInfoForm";
 
 const Max = styled.div`
   max-width: 800px;
@@ -41,7 +41,7 @@ export const Container = () => {
       <Wrapper>
         {users.map((user) => (
           <ItemContainer key={user}>
-            <UserInfo userId={user} />
+            <UserInfoForm url={`/users/${user}`} />
           </ItemContainer>
         ))}
       </Wrapper>

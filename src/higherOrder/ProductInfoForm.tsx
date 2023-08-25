@@ -68,6 +68,6 @@ export const ProductInfoForm = withEditableResource(
       <p>Loading...</p>
     );
   },
-  "/products/1234",
+
   "product"
 );

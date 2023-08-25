@@ -15,8 +15,6 @@ const AppContainer = styled.div`
 
 const App = () => (
   <AppContainer>
-    <UserInfoForm />
-    <ProductInfoForm />
     <TodoList />
     <Container />
   </AppContainer>

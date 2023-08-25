@@ -34,7 +34,7 @@ describe("withEditableResource HOC", () => {
 
     const WrappedComponent = withEditableResource(
       MockComponent,
-      "/resourcePath",
+
       "user"
     );
 
@@ -53,7 +53,7 @@ describe("withEditableResource HOC", () => {
 
     const WrappedComponent = withEditableResource(
       MockComponent,
-      "/resourcePath",
+
       "user"
     );
 

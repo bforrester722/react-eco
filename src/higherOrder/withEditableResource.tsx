@@ -6,12 +6,9 @@ import { IProductProps } from "../container/ProductInfo";
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export const withEditableResource = (
-  Component: FC,
-  resourcePath: string,
-  resourceName: string
-) => {
-  return () => {
+export const withEditableResource = (Component: FC, resourceName: string) => {
+  return (props: any) => {
+    const { url: resourcePath } = props;
     const [originalData, setOriginalData] = useState(null);
     const [data, setData] = useState(null);
 
@@ -50,11 +47,12 @@ export const withEditableResource = (
 
     const resourceProps = {
       [resourceName]: data,
+      [`org${resourceName}`]: originalData,
       [`onChange${capitalize(resourceName)}`]: onChange,
       [`onSave${capitalize(resourceName)}`]: onSave,
       [`onReset${capitalize(resourceName)}`]: onReset,
     };
 
-    return <Component {...resourceProps} />;
+    return <Component {...props} {...resourceProps} />;
   };
 };

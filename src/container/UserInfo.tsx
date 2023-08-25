@@ -9,10 +9,7 @@ export interface IUserInfoProps {
     name: string;
   };
 }
-export const UserInfo = ({ userId }: { userId?: string }) => {
-  const user: IUserInfoProps["user"] = useResource(
-    `http://localhost:8080/users/${userId}`
-  );
+export const UserInfo = ({ user }: IUserInfoProps) => {
   const { name, age, hairColor, hobbies } = user || {};
 
   return user ? (

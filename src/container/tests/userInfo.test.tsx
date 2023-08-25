@@ -9,6 +9,14 @@ import * as useResourceModule from "../../customHooks/useResource";
 // Configure enzyme to work with React 16
 configure({ adapter: new Adapter() });
 
+const user = {
+  age: 25,
+  hairColor: "Brown",
+  hobbies: ["Reading", "Swimming"],
+  id: "123",
+  name: "John Doe",
+};
+
 describe("UserInfo component", () => {
   it("renders loading state initially", () => {
     // Stubbing the useResource hook to return undefined
@@ -33,7 +41,7 @@ describe("UserInfo component", () => {
     // Stubbing the useResource hook to return the user object
     const useResourceStub = sinon.stub(useResourceModule, "useResource");
     useResourceStub.returns(user);
-    const wrapper = mount(<UserInfo userId="123" />);
+    const wrapper = mount(<UserInfo user={user} />);
 
     expect(wrapper.find("h3").at(0).text()).to.equal("John Doe");
     expect(wrapper.find("p").at(0).text()).to.equal("Age: 25 years");
@@ -50,7 +58,7 @@ describe("UserInfo component", () => {
     const useResourceStub = sinon.stub(useResourceModule, "useResource");
     useResourceStub.returns(undefined);
 
-    const wrapper = mount(<UserInfo userId="123" />);
+    const wrapper = mount(<UserInfo user={user} />);
     expect(wrapper.text()).to.include("Loading...");
 
     // Restore the stub after the test

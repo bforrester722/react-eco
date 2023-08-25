@@ -8,7 +8,7 @@ const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export const withEditableResource = (Component: FC, resourceName: string) => {
   return (props: any) => {
-    const { url: resourcePath } = props;
+    const { resourcePath } = props;
     const [originalData, setOriginalData] = useState(null);
     const [data, setData] = useState(null);
 

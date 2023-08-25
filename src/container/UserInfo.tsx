@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useResource } from "../customHooks/useResource";
+import styled from "styled-components";
+
 export interface IUserInfoProps {
   user?: {
     age: number;
@@ -9,11 +10,15 @@ export interface IUserInfoProps {
     name: string;
   };
 }
+
+const Wrapper = styled.div`
+  padding-bottom: 32px;
+`;
 export const UserInfo = ({ user }: IUserInfoProps) => {
   const { name, age, hairColor, hobbies } = user || {};
 
   return user ? (
-    <>
+    <Wrapper>
       <h3>{name}</h3>
       <p>Age: {age} years</p>
       <p>Hair Color: {hairColor}</p>
@@ -23,7 +28,7 @@ export const UserInfo = ({ user }: IUserInfoProps) => {
           <li key={hobby}>{hobby}</li>
         ))}
       </ul>
-    </>
+    </Wrapper>
   ) : (
     <p>Loading...</p>
   );

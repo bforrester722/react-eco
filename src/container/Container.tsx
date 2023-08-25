@@ -20,10 +20,11 @@ const Wrapper = styled.div`
 const ItemContainer = styled.div`
   background: #fff;
   border-radius: 8px;
-  margin-bottom: 32px;
+  margin: 32px 16px;
   padding: 16px 32px;
   position: relative;
   box-shadow: 0 4px 8px grey;
+  width: 100%;
 `;
 
 export const getServerData = (url: string) => async () => {
@@ -41,7 +42,7 @@ export const Container = () => {
       <Wrapper>
         {users.map((user) => (
           <ItemContainer key={user}>
-            <UserInfoForm url={`/users/${user}`} />
+            <UserInfoForm resourcePath={`/users/${user}`} />
           </ItemContainer>
         ))}
       </Wrapper>

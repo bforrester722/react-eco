@@ -16,7 +16,8 @@ const ModalBody = styled.div`
   background-color: white;
   margin: 10% auto;
   padding: 20px;
-  width: 50%;
+  max-width: 50%;
+  width: fit-content;
 `;
 
 export const ControlledModal = ({ shouldShow, onRequestClose, children }) => {
